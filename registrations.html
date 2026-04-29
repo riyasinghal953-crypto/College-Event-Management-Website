@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registrations - EventHub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .registrations-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .registrations-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .registrations-header h1 {
+            font-size: 2.5rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .registrations-header p {
+            font-size: 1.1rem;
+            color: #64748b;
+        }
+
+        .registration-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .registration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .registration-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .registration-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .registration-card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+        }
+
+        .registration-card-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .registration-card-header .badge {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .registration-card-content {
+            padding: 1.5rem;
+        }
+
+        .event-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .meta-item {
+            font-size: 0.9rem;
+        }
+
+        .meta-item strong {
+            color: var(--text-color);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .meta-item {
+            color: #64748b;
+        }
+
+        .google-form-link {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 1rem;
+        }
+
+        .google-form-link:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-2px);
+        }
+
+        .form-embedded {
+            margin-top: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .form-toggle {
+            background-color: var(--bg-color);
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .form-toggle:hover {
+            background-color: #e8eaf6;
+        }
+
+        .form-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .form-content.open {
+            max-height: 1200px;
+        }
+
+        .registration-status {
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: var(--bg-color);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .registration-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .stats-item {
+            text-align: center;
+        }
+
+        .stats-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stats-label {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 0.3rem;
+        }
+
+        .no-registrations {
+            text-align: center;
+            padding: 3rem;
+            color: #64748b;
+        }
+
+        .no-registrations i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #cbd5e0;
+        }
+    </style>
+</head>
+<body>
+    <header class="uni-header">
+        <div class="uni-header-container">
+            <div class="uni-logo-section">
+                <img src="images/logo.jpeg" alt="University Logo" class="logo-img">
+                <div class="uni-info">
+                    <h1>South Asian University</h1>
+                    <p>New Delhi, India - 110068</p>
+                </div>
+            </div>
+            <div class="uni-contact">
+                <p>📞 +91-11-4006-9999</p>
+                <p>📧 events@sau.edu.in</p>
+            </div>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>📅 EventHub</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="registrations.html" class="active">Registrations</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="registrations-container">
+        <div class="registrations-header">
+            <h1>Event Registrations</h1>
+            <p>Register for your favorite college events using the forms below</p>
+        </div>
+
+        <div class="registration-filters">
+            <button class="filter-btn active" data-filter="all">All Events</button>
+            <button class="filter-btn" data-filter="tech">Tech</button>
+            <button class="filter-btn" data-filter="sports">Sports</button>
+            <button class="filter-btn" data-filter="cultural">Cultural</button>
+            <button class="filter-btn" data-filter="academic">Academic</button>
+        </div>
+
+        <div class="registration-grid" id="registrationGrid">
+            <!-- Registration cards will be loaded here by JavaScript -->
+        </div>
+
+        <div id="noRegistrations" class="no-registrations" style="display:none;">
+            <i class="fas fa-search"></i>
+            <p>No registrations found for the selected category</p>
+        </div>
+    </div>
+
+    <footer class="uni-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="registrations.html">View Registrations</a></li>
+                    <li><a href="admin-dashboard.html">Team Admin</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact Information</h3>
+                <p>📍 South Asian University</p>
+                <p>Gaushala Road, Maidan Garhi</p>
+                <p>New Delhi-110068, India</p>
+                <p style="margin-top: 1rem;">📞 +91-11-4006-9999</p>
+                <p>📧 events@sau.edu.in</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Location</h3>
+                <div class="footer-map">
+                    <iframe src="https://www.google.com/maps?q=South+Asian+University+New+Delhi&output=embed" width="100%"  height="300"  style="border:0; border-radius:10px;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 South Asian University Event Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="registrations.js"></script>
+</body>
+</html>

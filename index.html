@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>South Asian University - Event Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="uni-header">
+        <div class="uni-header-container">
+            <div class="uni-logo">
+                <div class="uni-logo-icon"><img src="images/logo.jpeg" alt="logo" class="logo-img"></div>
+                <div class="uni-logo-text">
+                    <h1>South Asian University</h1>
+                    <p>Excellence in Education &amp; Innovation</p>
+                </div>
+            </div>
+            <div class="uni-address">
+                <p>📍 Gaushala Road, Maidan Garhi, New Delhi-110068</p>
+                <p>📞 +91-120-4567890 &nbsp;|&nbsp; ✉️ info@sau.edu.in</p>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>📅 EventHub</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="registrations.html">Registrations</a></li>
+                <li><a href="#about">About</a></li>
+                <li class="nav-buttons">
+                    <button class="btn-secondary" id="eventHeadLoginBtn">Event Head Login</button>
+                    <button class="btn-primary" id="userLoginBtn">Register / Login</button>
+                    <button class="btn-secondary" id="adminLoginBtn">Admin Login</button>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to South Asian University Event Hub</h1>
+            <p>Discover, register and manage college events all in one place</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" id="exploreBtn">Explore Events</button>
+                <button class="btn-secondary" id="registerNowBtn">Register for Events</button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="image-placeholder"><img src="images/sau.jpg" alt="sau" height="350" width="700"></div>
+        </div>
+    </section>
+
+    <section class="events-section" id="events">
+        <h2>Featured Events</h2>
+        <div class="filters">
+            <button class="filter-btn active" data-category="all">All Events</button>
+            <button class="filter-btn" data-category="tech">Tech</button>
+            <button class="filter-btn" data-category="sports">Sports</button>
+            <button class="filter-btn" data-category="cultural">Cultural</button>
+            <button class="filter-btn" data-category="academic">Academic</button>
+        </div>
+        <div class="events-grid" id="eventsGrid">
+            <!-- Events will be loaded here by JavaScript -->
+        </div>
+    </section>
+
+    <section class="about-section" id="about">
+        <h2>About EventHub</h2>
+        <p>EventHub is your one-stop platform for managing sau college events. Organize, promote, and manage events efficiently.</p>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="footer-logo">🎓 South Asian University</div>
+                <p class="footer-tagline">Excellence in Education &amp; Innovation</p>
+                <p style="margin-top:0.5rem; color:#94a3b8; font-size:0.9rem;">Empowering students through knowledge, creativity and leadership.</p>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">📍 Location</h4>
+                <p>Gaushala Road, Maidan Garhi</p>
+                <p>New Delhi-110068</p>
+                <p>India</p>
+                <iframe src="https://www.google.com/maps?q=South+Asian+University+New+Delhi&output=embed" width="100%"  height="300"  style="border:0; border-radius:10px;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">📞 Contact Us</h4>
+                <p>📞 +91-120-4567890</p>
+                <p>📠 +91-120-4567891</p>
+                <p>✉️ info@sau.edu.in</p>
+                <p>✉️ events@sau.edu.in</p>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">🔗 Quick Links</h4>
+                <p><a href="index.html" class="footer-link">Home</a></p>
+                <p><a href="registrations.html" class="footer-link">Open Registrations</a></p>
+                <p><a href="#events" class="footer-link">All Events</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 South Asian University – EventHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="modal" id="userLoginModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>User Login</h2>
+            <form id="userLoginForm">
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="userEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input type="password" id="userPassword" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+                <p class="toggle-form">Don't have an account? <a href="#" id="switchToRegister">Register here</a></p>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="registrationModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>User Registration</h2>
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label>Full Name:</label>
+                    <input type="text" id="userName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="regEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input type="password" id="regPassword" required>
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password:</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn-primary">Register</button>
+                <p class="toggle-form">Already have an account? <a href="#" id="switchToLogin">Login here</a></p>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="eventHeadLoginModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Event Head Login</h2>
+            <form id="eventHeadLoginForm">
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="eventHeadEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input type="password" id="eventHeadPassword" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+                <p class="toggle-form">Don't have an account? <a href="#" id="switchToEventHeadReg">Register here</a></p>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="eventHeadRegistrationModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Event Head Registration</h2>
+            <form id="eventHeadRegistrationForm">
+                <div class="form-group">
+                    <label>Full Name:</label>
+                    <input type="text" id="eventHeadName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="eventHeadRegEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Department:</label>
+                    <input type="text" id="eventHeadDept" required>
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input type="password" id="eventHeadRegPassword" required>
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password:</label>
+                    <input type="password" id="eventHeadConfirmPassword" required>
+                </div>
+                <button type="submit" class="btn-primary">Register</button>
+                <p class="toggle-form">Already have an account? <a href="#" id="switchToEventHeadLogin">Login here</a></p>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="eventDetailsModal">
+        <div class="modal-content modal-large">
+            <span class="close">&times;</span>
+            <div id="eventDetailsContent">
+                <!-- Event details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>🔐 Admin Login</h2>
+            <p style="color:#64748b; margin-bottom:1.5rem; font-size:0.95rem;">Enter the admin management password to access the admin portal.</p>
+            <div id="adminLoginForm">
+                <div class="form-group">
+                    <label>Admin Password:</label>
+                    <input type="password" id="adminPassword" placeholder="Enter admin password" required>
+                </div>
+                <button class="btn-primary" id="adminLoginSubmitBtn" style="width:100%;">Access Admin Portal</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

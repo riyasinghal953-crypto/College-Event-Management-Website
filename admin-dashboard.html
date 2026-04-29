@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - South Asian University EventHub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="uni-header">
+        <div class="uni-header-container">
+            <div class="uni-logo">
+                <div class="uni-logo-icon"><img src="images/logo.jpeg" class="logo-img"></div>
+                <div class="uni-logo-text">
+                    <h1>South Asian University</h1>
+                    <p>Excellence in Education &amp; Innovation</p>
+                </div>
+            </div>
+            <div class="uni-address">
+                <p>📍 Gaushala Road, Maidan Garhi, New Delhi- 110068</p>
+                <p>📞 +91-120-4567890 &nbsp;|&nbsp; ✉️ info@saufields.edu.in</p>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>🔐 Admin Dashboard</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Back to Home</a></li>
+                <li class="nav-buttons">
+                    <button class="btn-secondary" id="logoutBtn">Logout</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="dashboard">
+        <div class="dashboard-sidebar">
+            <h3>Admin Menu:</h3>
+            <ul class="dashboard-menu">
+                <li><button class="menu-btn active" data-section="overview">Overview</button></li>
+                <li><button class="menu-btn" data-section="pending-events">⏳ Pending Approval</button></li>
+                <li><button class="menu-btn" data-section="all-events">All Events</button></li>
+                <li><button class="menu-btn" data-section="event-heads">Event Heads</button></li>
+                <li><button class="menu-btn" data-section="users">Users</button></li>
+                <li><button class="menu-btn" data-section="login-history">Login History</button></li>
+                <li><button class="menu-btn" data-section="settings">Settings</button></li>
+            </ul>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="dashboard-section active" id="overview">
+                <h2>Dashboard Overview</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Events</h3>
+                        <div class="number" id="statsTotal">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Active Events</h3>
+                        <div class="number" id="statsActive">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Event Heads</h3>
+                        <div class="number" id="statsHeads">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Users</h3>
+                        <div class="number" id="statsUsers">0</div>
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: 12px; margin-top: 2rem;">
+                    <h3>System Status</h3>
+                    <div style="margin-top: 1.5rem;">
+                        <p style="margin-bottom: 1rem;">
+                            <strong>System Status:</strong> 
+                            <span class="status-badge status-active">Online</span>
+                        </p>
+                        <p style="margin-bottom: 1rem;">
+                            <strong>Last Updated:</strong> 
+                            <span id="lastUpdated">Just now</span>
+                        </p>
+                        <p>
+                            <strong>Database:</strong> 
+                            <span class="status-badge status-active">Connected</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-section" id="pending-events">
+                <h2>⏳ Pending Event Approvals</h2>
+                <p style="color:#64748b; margin-bottom:1.5rem;">Events submitted by Event Heads awaiting your approval before being published publicly.</p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Event Title</th>
+                                <th>Event Head</th>
+                                <th>Date</th>
+                                <th>Category</th>
+                                <th>Reg Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pendingEventsTable">
+                            <!-- Pending events will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="dashboard-section" id="all-events">
+                <h2>All Events Management</h2>
+                <div style="margin-bottom: 1rem;">
+                    <button class="btn-primary" onclick="switchSection('all-events')">Refresh</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Event Title</th>
+                                <th>Event Head</th>
+                                <th>Date</th>
+                                <th>Category</th>
+                                <th>Registrations</th>
+                                <th>Registration Link</th>
+                                <th>Reg Status</th>
+                                <th>Event Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="allEventsTable">
+                            <!-- Events will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="dashboard-section" id="event-heads">
+                <h2>Event Heads Management</h2>
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="active">Active</button>
+                        <button class="filter-btn" data-filter="pending">Pending</button>
+                        <button class="filter-btn" data-filter="banned">Banned</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Department</th>
+                                <th>Events Created</th>
+                                <th>Status</th>
+                                <th>Joined</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="eventHeadsTable">
+                            <!-- Event heads will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="dashboard-section" id="users">
+                <h2>Users Management</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Joined</th>
+                                <th>Registration Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTable">
+                            <!-- Users will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="dashboard-section" id="login-history">
+                <h2>Login Activity</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Email</th>
+                                <th>User Type</th>
+                                <th>Login Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="loginHistoryTable">
+                            <!-- Login history will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="dashboard-section" id="settings">
+                <h2>System Settings</h2>
+                <div style="background: white; padding: 2rem; border-radius: 12px; max-width: 600px;">
+                    <div style="margin-bottom: 2rem;">
+                        <h3>Admin Information</h3>
+                        <p><strong>Email:</strong> admin@college.com</p>
+                        <p><strong>Role:</strong> Super Administrator</p>
+                        <p><strong>Permissions:</strong> Full Access</p>
+                    </div>
+
+                    <div style="margin-bottom: 2rem; padding: 1.5rem; background-color: var(--bg-color); border-radius: 8px;">
+                        <h3>System Info</h3>
+                        <p><strong>Platform:</strong> College Event Management System</p>
+                        <p><strong>Version:</strong> 1.0.0</p>
+                        <p><strong>Database:</strong> Local Storage</p>
+                        <p><strong>Status:</strong> <span class="status-badge status-active">Operational</span></p>
+                    </div>
+
+                    <div style="margin-bottom: 2rem;">
+                        <h3>Quick Actions</h3>
+                        <button class="btn-secondary" onclick="resetAllData()">Reset All Data</button>
+                        <p style="color: #64748b; font-size: 0.9rem; margin-top: 0.5rem;">⚠️ This will delete all events, users, and event heads data</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="editEventModal">
+        <div class="modal-content modal-large">
+            <span class="close">&times;</span>
+            <h2>Edit Event</h2>
+            <form id="editAdminEventForm">
+                <input type="hidden" id="adminEditEventId">
+                
+                <div class="form-group">
+                    <label>Event Title:</label>
+                    <input type="text" id="adminEditEventTitle" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Category:</label>
+                    <select id="adminEditEventCategory" required>
+                        <option value="tech">Tech</option>
+                        <option value="sports">Sports</option>
+                        <option value="cultural">Cultural</option>
+                        <option value="academic">Academic</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Event Date:</label>
+                    <input type="date" id="adminEditEventDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Event Time:</label>
+                    <input type="time" id="adminEditEventTime" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Location:</label>
+                    <input type="text" id="adminEditEventLocation" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Description:</label>
+                    <textarea id="adminEditEventDescription" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Event Image URL:</label>
+                    <input type="url" id="adminEditEventImage" required>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label>Event Type:</label>
+                        <select id="adminEditEventType" required>
+                            <option value="upcoming">Upcoming</option>
+                            <option value="ongoing">Ongoing</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Registration Status:</label>
+                        <select id="adminEditEventRegStatus" required>
+                            <option value="registrations_open">Registrations Open</option>
+                            <option value="registrations_upcoming">Registrations Upcoming</option>
+                            <option value="registrations_closed">Registrations Closed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Registration Link:</label>
+                    <input type="url" id="adminEditEventRegLink" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Registration Limit:</label>
+                    <input type="number" id="adminEditEventRegLimit" min="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Event Status:</label>
+                    <select id="adminEditEventStatus" required>
+                        <option value="active">Active</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-primary">Update Event</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="eventHeadControlModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Event Head Control</h2>
+            <div id="eventHeadControlContent">
+                <!-- Control options will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>
